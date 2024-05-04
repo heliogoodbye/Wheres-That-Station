@@ -2,7 +2,7 @@
 
 ![wheres that station](https://github.com/heliogoodbye/Wheres-That-Station/assets/105381685/c67a370e-a331-4017-a137-15f0b7df1eaf)
 
-Intended for use on the internal Nexstar Newsroom website, **Where's that Station?** is a WordPress plugin designed to display the time zone and current time of a Nexstar TV station based on its call letters. It provides a shortcode `[wheres_that_station]` that users can embed in their WordPress posts or pages to easily access this functionality.
+Nexstar has 200+ TV stations and is the largest local broadcaster in the United States. With that many stations, it can be difficult to keep track of where a station is located and the current time there, so I set forth to create a plugin to serve as a quick reference. Intended for use on the internal Nexstar Newsroom website, **Where's that Station?** is a WordPress plugin designed to display the time zone and current time of a Nexstar TV station based on its call letters. It provides a shortcode `[wheres_that_station]` that users can embed in their WordPress posts or pages to easily access this functionality.
 
 Here's how the plugin works:
 
