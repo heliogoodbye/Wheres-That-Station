@@ -1,5 +1,5 @@
 # Where's That Station
-Intended for use on the internal Nexstar Newsroom website, **Where's that Station?** is designed to display the time zone and current time of a Nexstar TV station based on its call letters. It provides a shortcode `[wheres_that_station]` that users can embed in their WordPress posts or pages to easily access this functionality.
+Intended for use on the internal Nexstar Newsroom website, **Where's that Station?** is a WordPress plugin designed to display the time zone and current time of a Nexstar TV station based on its call letters. It provides a shortcode `[wheres_that_station]` that users can embed in their WordPress posts or pages to easily access this functionality.
 
 Here's how the plugin works:
 
