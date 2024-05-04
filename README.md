@@ -50,10 +50,4 @@ To use the plugin on your WordPress site, follow these step-by-step instructions
 
 6. **View Time Zone and Current Time**:
    - Once the request is processed, the plugin will dynamically display the time zone and current time of the TV station you entered.
-   - You should see this information displayed on the same page, typically below or near the form.
-
-7. **Repeat as Needed**:
-   - You can use the form multiple times to look up the time zone and current time of different TV stations.
-   - Simply enter new call letters into the form and submit it to get information about another station.
-
-That's it! You've successfully used the "Where's that Station?" plugin to find the time zone and current time of US TV stations on your WordPress site.
+   - You should see this information displayed on the same page, below the form.
