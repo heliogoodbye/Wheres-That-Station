@@ -2,7 +2,7 @@
 /*
 Plugin Name: Where's that Station?
 Description: Display the time zone and current time of a US TV station based on call letters.
-Version: 1.0
+Version: 1.0.1
 Author: Chris Stelly
 Author URI: https://github.com/heliogoodbye
 License: GPL3
@@ -64,7 +64,7 @@ add_shortcode('wheres_that_station', 'wheres_that_station_shortcode');
 
 // Function to get time zone based on call letters
 function get_station_time_zone() {
-    $call_letters = isset($_POST['call_letters']) ? sanitize_text_field($_POST['call_letters']) : '';
+    $call_letters = isset($_POST['call_letters']) ? strtoupper(sanitize_text_field($_POST['call_letters'])) : ''; // Convert input to uppercase
     $station_time_zones = array(
 		'WIAT' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Birmingham', 'state' => 'AL'),
 		'WDHN' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Dothan', 'state' => 'AL'),
@@ -128,8 +128,8 @@ function get_station_time_zone() {
 		'WHBF' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Davenport–Burlington–Rock Island,', 'state' => 'IL'),
 		'KLJB' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Davenport–Burlington–Rock Island,', 'state' => 'IL'),
 		'KGCW' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Davenport–Burlington–Rock Island,', 'state' => 'IL'),
-		'WEHT' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Evansville,', 'state' => 'IN'),
-		'WTVW' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Evansville,', 'state' => 'IN'),
+		'WEHT' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Evansville', 'state' => 'IN'),
+		'WTVW' => array('timezone' => 'America/Chicago', 'name' => 'Central Time', 'city' => 'Evansville', 'state' => 'IN'),
 		'WANE' => array('timezone' => 'America/New_York', 'name' => 'Eastern Time', 'city' => 'Fort Wayne', 'state' => 'IN'),
 		'WXIN' => array('timezone' => 'America/New_York', 'name' => 'Eastern Time', 'city' => 'Indianapolis', 'state' => 'IN'),
 		'WTTV' => array('timezone' => 'America/New_York', 'name' => 'Eastern Time', 'city' => 'Indianapolis', 'state' => 'IN'),
@@ -289,21 +289,17 @@ function get_station_time_zone() {
 
     if (array_key_exists($call_letters, $station_time_zones)) {
         $station_info = $station_time_zones[$call_letters];
-        $station_time_zone = $station_info['timezone'];
-        $station_name = $station_info['name'];
-		$city = $station_info['city'];
-        $state = $station_info['state'];
-
-        $current_time = new DateTime('now', new DateTimeZone($station_time_zone));
-        $current_time_formatted = $current_time->format('g:i A'); // Format time as "7:00 PM"
-
-        echo "<hr /><p>$call_letters is located in</p> <h4>$city, $state</h4> <p>which is in</p> <h4>$station_name</h4></p><hr /><p>The current time at $call_letters is:</p> <h1>$current_time_formatted</h1>";
+        $time = new DateTime('now', new DateTimeZone($station_info['timezone']));
+        $formatted_time = $time->format('h:i A');
+        $result = "<hr /><p>$call_letters is located in</p> <h4>{$station_info['city']}, {$station_info['state']}</h4> <p>which is in</p> <h4>{$station_info['name']}</h4></p><hr /><p>The current time at $call_letters is:</p> <h1>{$formatted_time}</h1>";
     } else {
-        echo "<p>No time zone information found for $call_letters. This form only works for stations owned or operated by Nexstar.</p>";
+        $result = "<h4>Station not found</h4>";
     }
 
-    wp_die(); // Always include wp_die() at the end of an AJAX callback
+    echo $result;
+    wp_die(); // This is important to terminate the script after AJAX call
 }
+
 add_action('wp_ajax_get_station_timezone', 'get_station_time_zone');
 add_action('wp_ajax_nopriv_get_station_timezone', 'get_station_time_zone'); // Allow non-logged-in users to access the AJAX endpoint
 
